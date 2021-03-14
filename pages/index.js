@@ -1,4 +1,6 @@
 import Head from 'next/head'
+import Link from 'next/link'
+
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
@@ -15,8 +17,7 @@ export default function Home() {
                 </h1>
 
                 <p className={styles.description}>
-                    Get started by editing{' '}
-                    <code className={styles.code}>pages/index.js</code>
+                    Check <Link href='/games/tic-tac-toe'>the game</Link>
                 </p>
 
                 <div className={styles.grid}>
