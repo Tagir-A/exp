@@ -10,13 +10,14 @@ const intDivision = (dividend: number, divisor: number) => Math.trunc(dividend /
 function checkForWinner(state: State): 'x' | 'o' | null {
   const { board } = state
   const rows = [0, 0, 0]
-  const cols = [0, 0, 0]
+  const cols = [0, 0, 0];
   const diags = [0, 0]
 
   for (const cell of Object.values(board)) {
     const cellRow = intDivision(Number(cell.id), BOARD_SIZE)
     const cellCol = Number(cell.id) % BOARD_SIZE
-    const cellDiag = cellRow === cellCol ? 0 : cellRow + cellCol + 1 === BOARD_SIZE ? 1 : null
+    const cellDiag = cellRow === cellCol ? 0 : cellRow + cellCol + 1
+      === BOARD_SIZE ? 1 : null
 
     if (cell.value === 'x') {
       rows[cellRow]++
@@ -61,8 +62,7 @@ type API = {
 }
 
 export const useTicTacToe = (): API => {
-  const [state, setState] = useState<State>(initState);
-
+  const [state, setState] = useState<State>(initState)
 
   const historyState: HistoryState = Object.values(state.board).reduce(
     (acc, cell): HistoryState => {
