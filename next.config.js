@@ -6,6 +6,6 @@ module.exports = (phase, defaultConfig) => {
   return withBundleAnalyzer({
     ...defaultConfig,
     reactStrictMode: true,
-    target: 'server'
+    target: 'server',
   })
 }

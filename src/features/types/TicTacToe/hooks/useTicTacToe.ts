@@ -1,12 +1,11 @@
-import { notReachable } from "app/types"
-import { useState } from "react"
+import { notReachable } from 'app/types'
+import { useState } from 'react'
 
-import { State, CellId } from "../TicTacToe"
+import { State, CellId } from '../TicTacToe'
 
 const BOARD_SIZE = 3
 
-const intDivision = (dividend: number, divisor: number) =>
-  Math.trunc(dividend / divisor)
+const intDivision = (dividend: number, divisor: number) => Math.trunc(dividend / divisor)
 
 function checkForWinner(state: State): 'x' | 'o' | null {
   const { board } = state
@@ -17,8 +16,7 @@ function checkForWinner(state: State): 'x' | 'o' | null {
   for (const cell of Object.values(board)) {
     const cellRow = intDivision(Number(cell.id), BOARD_SIZE)
     const cellCol = Number(cell.id) % BOARD_SIZE
-    const cellDiag = cellRow === cellCol
-      ? 0 : cellRow + cellCol + 1 === BOARD_SIZE ? 1 : null
+    const cellDiag = cellRow === cellCol ? 0 : cellRow + cellCol + 1 === BOARD_SIZE ? 1 : null
 
     if (cell.value === 'x') {
       rows[cellRow]++
@@ -38,7 +36,6 @@ function checkForWinner(state: State): 'x' | 'o' | null {
   return null
 }
 
-
 const initState: State = {
   type: 'in_progress',
   board: {
@@ -50,8 +47,8 @@ const initState: State = {
     '5': { id: '5', value: null },
     '6': { id: '6', value: null },
     '7': { id: '7', value: null },
-    '8': { id: '8', value: null }
-  }
+    '8': { id: '8', value: null },
+  },
 }
 
 type HistoryState = {
@@ -66,13 +63,16 @@ type API = {
 export const useTicTacToe = (): API => {
   const [state, setState] = useState<State>(initState)
 
-  const historyState: HistoryState = Object.values(state.board).reduce((acc, cell,): HistoryState => {
-    return cell.value ? { ...acc, turnCount: acc.turnCount + 1 } : acc
-  }, { turnCount: 0 })
+  const historyState: HistoryState = Object.values(state.board).reduce(
+    (acc, cell): HistoryState => {
+      return cell.value ? { ...acc, turnCount: acc.turnCount + 1 } : acc
+    },
+    { turnCount: 0 }
+  )
 
   const setNextSymbol = (id: CellId) => {
     // @ts-ignore
-    setState(prevState => {
+    setState((prevState) => {
       switch (prevState.type) {
         case 'start':
           return {
@@ -82,20 +82,21 @@ export const useTicTacToe = (): API => {
               ...prevState.board,
               [id]: {
                 id,
-                value: historyState.turnCount % 2 ? 'o' : 'x'
-              }
-            }
+                value: historyState.turnCount % 2 ? 'o' : 'x',
+              },
+            },
           }
 
         case 'in_progress': {
           const nextState = {
-            ...prevState, board: {
+            ...prevState,
+            board: {
               ...prevState.board,
               [id]: {
                 id,
-                value: historyState.turnCount % 2 ? 'o' : 'x'
-              }
-            }
+                value: historyState.turnCount % 2 ? 'o' : 'x',
+              },
+            },
           }
           if (historyState.turnCount > 4 && historyState.turnCount < 9) {
             const winner = checkForWinner(nextState)
@@ -108,22 +109,19 @@ export const useTicTacToe = (): API => {
           return nextState
         }
 
-
         case 'win':
         case 'draw':
-          // cannot set value after win or draw  
+          // cannot set value after win or draw
           return prevState
 
         default:
           return notReachable(prevState)
       }
-
     })
   }
 
   return {
     state,
-    setNextSymbol
+    setNextSymbol,
   }
 }
-

@@ -9,17 +9,21 @@ type FilledCell = {
   value: 'x' | 'o'
 }
 
-export type State = {
-  type: 'start', board: Record<CellId, EmptyCell>
-} | {
-  type: 'in_progress'
-  board: Record<CellId, EmptyCell | FilledCell>
-} | {
-  type: 'win',
-  board: Record<CellId, EmptyCell | FilledCell>,
-  winner: 'x' | 'o'
-}
+export type State =
   | {
-    type: 'draw',
-    board: Record<CellId, FilledCell>,
-  }
+      type: 'start'
+      board: Record<CellId, EmptyCell>
+    }
+  | {
+      type: 'in_progress'
+      board: Record<CellId, EmptyCell | FilledCell>
+    }
+  | {
+      type: 'win'
+      board: Record<CellId, EmptyCell | FilledCell>
+      winner: 'x' | 'o'
+    }
+  | {
+      type: 'draw'
+      board: Record<CellId, FilledCell>
+    }
