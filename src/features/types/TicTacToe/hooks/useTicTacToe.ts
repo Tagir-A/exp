@@ -69,6 +69,7 @@ type HistoryState = {
 
 type API = {
   state: State
+  turnCount: number
   setNextSymbol: (id: CellId) => void
 }
 
@@ -140,5 +141,6 @@ export const useTicTacToe = (): API => {
   return {
     state,
     setNextSymbol,
+    turnCount: historyState.turnCount,
   }
 }
