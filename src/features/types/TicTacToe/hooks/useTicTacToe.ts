@@ -17,7 +17,8 @@ function checkForWinner(state: State): 'x' | 'o' | null {
   for (const cell of Object.values(board)) {
     const cellRow = intDivision(Number(cell.id), BOARD_SIZE)
     const cellCol = Number(cell.id) % BOARD_SIZE
-    const cellDiag = cellRow === cellCol ? 0 : cellRow + cellCol + 1 === BOARD_SIZE ? 1 : null
+    const cellDiag = cellRow === cellCol
+      ? 0 : cellRow + cellCol + 1 === BOARD_SIZE ? 1 : null
 
     if (cell.value === 'x') {
       rows[cellRow]++
@@ -49,7 +50,7 @@ const initState: State = {
     '5': { id: '5', value: null },
     '6': { id: '6', value: null },
     '7': { id: '7', value: null },
-    '8': { id: '8', value: null },
+    '8': { id: '8', value: null }
   }
 }
 
