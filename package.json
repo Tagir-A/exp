@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "analyze": "ANALYZE=true npm run build"
+    "analyze": "ANALYZE=true npm run build",
+    "lint": "eslint . --fix && prettier . --write"
   },
   "dependencies": {
     "next": "10.0.8",
