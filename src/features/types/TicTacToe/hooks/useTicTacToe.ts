@@ -5,19 +5,20 @@ import { State, CellId } from '../TicTacToe'
 
 const BOARD_SIZE = 3
 
-const intDivision = (dividend: number, divisor: number) => Math.trunc(dividend / divisor)
+const intDivision = (dividend: number, divisor: number) =>
+  Math.trunc(dividend / divisor)
 
 function checkForWinner(state: State): 'x' | 'o' | null {
   const { board } = state
   const rows = [0, 0, 0]
-  const cols = [0, 0, 0];
+  const cols = [0, 0, 0]
   const diags = [0, 0]
 
   for (const cell of Object.values(board)) {
     const cellRow = intDivision(Number(cell.id), BOARD_SIZE)
     const cellCol = Number(cell.id) % BOARD_SIZE
-    const cellDiag = cellRow === cellCol ? 0 : cellRow + cellCol + 1
-      === BOARD_SIZE ? 1 : null
+    const cellDiag =
+      cellRow === cellCol ? 0 : cellRow + cellCol + 1 === BOARD_SIZE ? 1 : null
 
     if (cell.value === 'x') {
       rows[cellRow]++
@@ -32,8 +33,18 @@ function checkForWinner(state: State): 'x' | 'o' | null {
   }
 
   // return winner if any
-  if (rows.includes(BOARD_SIZE) || cols.includes(BOARD_SIZE) || diags.includes(BOARD_SIZE)) return 'x'
-  if (rows.includes(BOARD_SIZE * -1) || cols.includes(BOARD_SIZE * -1) || diags.includes(BOARD_SIZE * -1)) return 'o'
+  if (
+    rows.includes(BOARD_SIZE) ||
+    cols.includes(BOARD_SIZE) ||
+    diags.includes(BOARD_SIZE)
+  )
+    return 'x'
+  if (
+    rows.includes(BOARD_SIZE * -1) ||
+    cols.includes(BOARD_SIZE * -1) ||
+    diags.includes(BOARD_SIZE * -1)
+  )
+    return 'o'
   return null
 }
 
@@ -72,6 +83,7 @@ export const useTicTacToe = (): API => {
   )
 
   const setNextSymbol = (id: CellId) => {
+    // eslint-disable-next-line
     // @ts-ignore
     setState((prevState) => {
       switch (prevState.type) {
@@ -101,11 +113,15 @@ export const useTicTacToe = (): API => {
           }
           if (historyState.turnCount > 4 && historyState.turnCount < 9) {
             const winner = checkForWinner(nextState)
-            return winner ? { type: 'win', board: nextState.board, winner } : nextState
+            return winner
+              ? { type: 'win', board: nextState.board, winner }
+              : nextState
           }
           if (historyState.turnCount === 9) {
             const winner = checkForWinner(nextState)
-            return winner ? { type: 'win', board: nextState.board, winner } : { type: 'draw', board: nextState.board }
+            return winner
+              ? { type: 'win', board: nextState.board, winner }
+              : { type: 'draw', board: nextState.board }
           }
           return nextState
         }

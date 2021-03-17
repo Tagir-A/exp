@@ -6,11 +6,21 @@ import { CellId, State as TicTacToeState } from '../TicTacToe'
 
 import styles from './TicTacToe.module.css'
 
-const Board = ({ state, setNextSymbol }: { state: TicTacToeState; setNextSymbol: (id: CellId) => void }) => (
+const Board = ({
+  state,
+  setNextSymbol,
+}: {
+  state: TicTacToeState
+  setNextSymbol: (id: CellId) => void
+}) => (
   <div className={styles.board}>
     {Object.values(state.board).map((cell) => {
       return (
-        <div key={cell.id} className={styles.cell} onClick={() => setNextSymbol(cell.id)}>
+        <div
+          key={cell.id}
+          className={styles.cell}
+          onClick={() => setNextSymbol(cell.id)}
+        >
           {cell.value}
         </div>
       )
