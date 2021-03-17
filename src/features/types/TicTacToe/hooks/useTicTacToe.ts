@@ -61,7 +61,8 @@ type API = {
 }
 
 export const useTicTacToe = (): API => {
-  const [state, setState] = useState<State>(initState)
+  const [state, setState] = useState<State>(initState);
+
 
   const historyState: HistoryState = Object.values(state.board).reduce(
     (acc, cell): HistoryState => {
