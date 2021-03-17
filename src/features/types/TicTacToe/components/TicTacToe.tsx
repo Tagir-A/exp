@@ -29,17 +29,28 @@ const Board = ({
 )
 
 export const TicTacToe = () => {
-  const { state, setNextSymbol } = useTicTacToe()
+  const { state, setNextSymbol, turnCount } = useTicTacToe()
 
   switch (state.type) {
     case 'start':
-      return <Board state={state} setNextSymbol={setNextSymbol} />
+      return (
+        <>
+          <Board state={state} setNextSymbol={setNextSymbol} />
+          <div>Turn count: {turnCount}</div>
+        </>
+      )
     case 'in_progress':
-      return <Board state={state} setNextSymbol={setNextSymbol} />
+      return (
+        <>
+          <Board state={state} setNextSymbol={setNextSymbol} />
+          <div>Turn count: {turnCount}</div>
+        </>
+      )
     case 'win':
       return (
         <>
           <Board state={state} setNextSymbol={setNextSymbol} />
+          <div>Turn count: {turnCount}</div>
           <div>And the winner is {state.winner}</div>
         </>
       )
@@ -47,6 +58,7 @@ export const TicTacToe = () => {
       return (
         <>
           <Board state={state} setNextSymbol={setNextSymbol} />
+          <div>Turn count: {turnCount}</div>
           <div>It&apos;s a draw</div>
         </>
       )
