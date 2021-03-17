@@ -20,6 +20,8 @@ export default function Home() {
 
         <p className={styles.description}>
           Check <Link href='/games/tic-tac-toe'>the game</Link>
+          <br />
+          Check <Link href='/shops/nails'>the shop</Link>
         </p>
 
         <div className={styles.grid}>
