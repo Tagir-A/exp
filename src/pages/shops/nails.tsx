@@ -8,22 +8,20 @@ const client = contentful.createClient({
   accessToken: process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN!,
 })
 
-export default function NailsPage() {
-  async function fetchEntries(): Promise<any[]> {
-    const entries = await client.getEntries()
-    if (entries.items) return entries.items
-    return []
-    console.log(`Error getting Entries for .`)
-  }
-  const [posts, setPosts] = useState<any[]>([])
+export async function getStaticProps() {
+  // Get external data from the file system, API, DB, etc.
+  const entries = await client.getEntries()
 
-  useEffect(() => {
-    async function getPosts() {
-      const allPosts = await fetchEntries()
-      setPosts([...allPosts])
-    }
-    getPosts()
-  }, [])
+  // The value of the `props` key will be
+  //  passed to the `Home` component
+  return {
+    props: {
+      posts: [...entries.items],
+    },
+  }
+}
+
+export default function NailsPage({ posts }: { posts: any[] }) {
   return (
     <>
       <Head>
@@ -37,7 +35,7 @@ export default function NailsPage() {
       </h2>
       <div>Best nails here!</div>
       {posts.length > 0
-        ? posts.map((p) => <div key={p.fields.id}>{p.fields.productName}</div>)
+        ? posts.map((p) => <div key={p.sys.id}>{p.fields.productName}</div>)
         : null}
     </>
   )
