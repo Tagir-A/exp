@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import * as contentful from 'contentful'
+import exampleData from '../../shop_data/data.json'
 
 const client = contentful.createClient({
   space: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID!,
@@ -34,9 +35,9 @@ export default function NailsPage({ posts }: { posts: any[] }) {
         </Link>
       </h2>
       <div>Best nails here!</div>
-      {posts.length > 0
-        ? posts.map((p) => <div key={p.sys.id}>{p.fields.productName}</div>)
-        : null}
+      {exampleData.map((item) => (
+        <div key={item.article}>{item.name}</div>
+      ))}
     </>
   )
 }
