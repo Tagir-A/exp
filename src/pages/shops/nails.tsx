@@ -1,27 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
-import * as contentful from 'contentful'
+import exampleData from '../../shop_data/data.json'
 
-const client = contentful.createClient({
-  space: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID!,
-  accessToken: process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN!,
-})
-
-export async function getStaticProps() {
-  // Get external data from the file system, API, DB, etc.
-  const entries = await client.getEntries()
-
-  // The value of the `props` key will be
-  //  passed to the `Home` component
-  return {
-    props: {
-      posts: [...entries.items],
-    },
-  }
-}
-
-export default function NailsPage({ posts }: { posts: any[] }) {
+export default function NailsPage(): React.ReactNode {
   return (
     <>
       <Head>
@@ -34,9 +16,9 @@ export default function NailsPage({ posts }: { posts: any[] }) {
         </Link>
       </h2>
       <div>Best nails here!</div>
-      {posts.length > 0
-        ? posts.map((p) => <div key={p.sys.id}>{p.fields.productName}</div>)
-        : null}
+      {exampleData.map((item) => (
+        <div key={item.article}>{item.name}</div>
+      ))}
     </>
   )
 }
