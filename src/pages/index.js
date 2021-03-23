@@ -22,6 +22,11 @@ export default function Home() {
           Check <Link href='/games/tic-tac-toe'>the game</Link>
           <br />
           Check <Link href='/shops/nails'>the shop</Link>
+          <br />
+          Check{' '}
+          <Link href='/shops/tailwind-nails/nails-tailwind'>
+            the tailwind shop
+          </Link>
         </p>
 
         <div className={styles.grid}>
